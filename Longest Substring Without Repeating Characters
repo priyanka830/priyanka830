@@ -1,0 +1,56 @@
+Given a string s, find the length of the longest substring without repeating characters.
+
+ 
+
+Example 1:
+
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+Example 2:
+
+Input: s = "bbbbb"
+Output: 1
+Explanation: The answer is "b", with the length of 1.
+Example 3:
+
+Input: s = "pwwkew"
+Output: 3
+Explanation: The answer is "wke", with the length of 3.
+Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+Example 4:
+
+Input: s = ""
+Output: 0
+ 
+
+Constraints:
+
+0 <= s.length <= 5 * 104
+s consists of English letters, digits, symbols and spaces.
+
+
+
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        leftp = rightp = 0
+        uniq = set(s)                   
+        tab = {}
+        maxy = 0
+        maxx = 0
+        for i  in uniq:
+            tab.update({i:0})                  
+        while(rightp < len(s)):
+            if(tab.get(s[rightp]) == 0):
+                tab.update({s[rightp]:1})
+                maxy = sum(tab.values())       
+                if(maxx < maxy):               
+                    maxx = maxy
+                rightp = rightp + 1
+            else:
+                tab.update({s[leftp]:0})
+                leftp = leftp + 1
+        return maxx
+                
+        
